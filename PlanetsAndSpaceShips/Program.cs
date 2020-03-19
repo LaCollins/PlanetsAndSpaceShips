@@ -25,9 +25,33 @@ namespace PlanetsAndSpaceShips
 
             planetList.Remove("Pluto");
 
-            foreach (var planet in planetList)
+            Dictionary<string, List<string>> spaceShips = new Dictionary<string, List<string>>();
+
+            spaceShips.Add("Curiosity", new List<string> { "Mars", "Mercury" });
+            spaceShips.Add("Opportunity", new List<string> { "Mars", "Earth" });
+            spaceShips.Add("Voyager", new List<string> { "Jupiter", "Saturn" });
+            spaceShips.Add("MooBeam", new List<string> { "Venus", "Mercury" });
+
+            var ships = spaceShips.Keys;
+
+            foreach ( var planet in planetList )
             {
-                Console.WriteLine(planet);
+                var outString = $"{planet}: ";
+                 
+                foreach( var ship in ships)
+                {
+                    var visitedPlanets = spaceShips.GetValueOrDefault(ship);
+                    if (visitedPlanets[0] == planet)
+                    {
+                        outString += ship + ", ";
+                    }
+                    else if (visitedPlanets[1] == planet)
+                    {
+                        outString += ship + ", ";
+                    }
+                }
+
+                Console.WriteLine(outString.Remove((outString.Length - 2), 2));
             }
 
             Console.ReadKey();
